@@ -21,6 +21,7 @@ import {
   SelectFilter,
 } from "@/types";
 import Slider from "@/components/customized/slider";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface SidebarProps {
   filters: Filter[];
@@ -110,8 +111,19 @@ const RangeSliderFilterComponent = ({
 const SelectFilterComponent = ({ filter }: { filter: SelectFilter }) => {
   return (
     <div className="flex justify-between items-center">
-      <h6 className="font-medium">{filter.label}</h6>
-      <Se
+        <h6 className="text-sm font-medium text-foreground">{filter.label}</h6>
+      <Select>
+        <SelectTrigger className="w-40">
+          <SelectValue placeholder="Select an option" />
+        </SelectTrigger>
+        <SelectContent>
+          {filter.values.map((value) => (
+            <SelectItem key={value.label} value={value.label}>
+              {value.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
     </div>
   );
 };
@@ -148,6 +160,8 @@ export default function FilterComponent({ filters }: SidebarProps) {
         return (
           <RangeSliderFilterComponent filter={filter as RangeSliderFilter} />
         );
+      case FilterType.Select:
+        return <SelectFilterComponent filter={filter as SelectFilter} />;
       default:
         return null;
     }

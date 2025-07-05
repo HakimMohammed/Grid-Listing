@@ -18,6 +18,18 @@ import { Button } from "@/components/ui/button";
 
 const filters: Filter[] = [
   {
+    label: "Sort By",
+    icon: SlidersHorizontal,
+    type: FilterType.Select,
+    values: [
+      { label: "Relevance", value: "relevance" },
+      { label: "Price: Low to High", value: "price_low_to_high" },
+      { label: "Price: High to Low", value: "price_high_to_low" },
+      { label: "Newest First", value: "newest_first" },
+      { label: "Oldest First", value: "oldest_first" },
+    ],
+  },
+  {
     label: "Price",
     type: FilterType.RangeSlider,
     values: {
