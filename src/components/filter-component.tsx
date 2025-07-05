@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { SlidersHorizontal } from "lucide-react";
 import {
+  ButtonsFilter,
   CheckboxFilter,
   Filter,
   FilterType,
@@ -16,7 +17,8 @@ import {
 import CheckboxFilterComponent from "@/components/filter/checkbox-filter-component";
 import RangeSliderFilterComponent from "@/components/filter/range-slider-filter-component";
 import SelectFilterComponent from "@/components/filter/select-filter-component";
-import TextInputFilterComponent from "./filter/text-input-filter-component";
+import TextInputFilterComponent from "@/components/filter/text-input-filter-component";
+import ButtonFilterComponent from "@/components/filter/button-filter-component";
 
 interface SidebarProps {
   filters: Filter[];
@@ -58,13 +60,15 @@ export default function FilterComponent({ filters }: SidebarProps) {
         return <SelectFilterComponent filter={filter as SelectFilter} />;
       case FilterType.TextInput:
         return <TextInputFilterComponent filter={filter as TextInputFilter} />;
+      case FilterType.Buttons:
+        return <ButtonFilterComponent filter={filter as ButtonsFilter} />;
       default:
         return null;
     }
   };
 
   return (
-    <div className="w-80 bg-card p-6 min-h-screen border rounded-sm border-border">
+    <div className="w-80 bg-card p-6 border rounded-sm border-border min-h-screen h-screen overflow-y-auto">
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">

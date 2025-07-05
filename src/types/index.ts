@@ -45,7 +45,8 @@ export type SelectFilter = BaseFilter & {
 export type ButtonsFilter = BaseFilter & {
   type: FilterType.Buttons;
   values: {
-    label: string;
+    label?: string;
+    icon?: ComponentType<SVGProps<SVGSVGElement>>;
     value: string;
   }[];
 };

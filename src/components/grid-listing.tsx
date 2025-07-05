@@ -8,6 +8,9 @@ import {
   SlidersHorizontal,
   Search,
   Settings2,
+  List,
+  Grid2X2,
+  Grid3X3,
 } from "lucide-react";
 import FilterComponent from "@/components/filter-component";
 import { useMediaQuery } from "@/hooks/use-media-query";
@@ -35,6 +38,17 @@ const filters: Filter[] = [
       { label: "Price: High to Low", value: "price_high_to_low" },
       { label: "Newest First", value: "newest_first" },
       { label: "Oldest First", value: "oldest_first" },
+    ],
+  },
+  {
+    label: "Display",
+    icon: LayoutDashboard,
+    type: FilterType.Buttons,
+    values: [
+      { value: "list", icon: List },
+      { value: "grid-2", icon: Grid2X2 },
+      { value: "grid-3", icon: Grid3X3 },
+      { value: "grid-4", icon: Grid3X3 },
     ],
   },
   {
