@@ -1,13 +1,30 @@
 "use client";
 
 import { Filter, FilterType } from "@/types";
-import { LayoutDashboard, ListChecks, CodeXml , SlidersHorizontal} from "lucide-react";
-import Sidebar from "@/components/sidebar";
+import {
+  LayoutDashboard,
+  ListChecks,
+  CodeXml,
+  SlidersHorizontal,
+} from "lucide-react";
+import FilterComponent from "@/components/filter-component";
 import { useMediaQuery } from "@/hooks/use-media-query";
-import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerTrigger,
+} from "@/components/customized/drawer";
 import { Button } from "@/components/ui/button";
 
 const filters: Filter[] = [
+  {
+    label: "Price",
+    type: FilterType.RangeSlider,
+    values: {
+      min: 0,
+      max: 1000,
+    },
+  },
   {
     label: "Category",
     icon: LayoutDashboard,
@@ -47,7 +64,7 @@ export default function GridListing() {
     <div className="container mx-auto px-4 py-8">
       <div className="flex flex-col md:flex-row gap-6">
         {isMobile ? (
-          <Drawer  direction="left">
+          <Drawer direction="left">
             <DrawerTrigger asChild>
               <Button variant="outline" className="m-4 flex items-center gap-2">
                 <SlidersHorizontal className="w-4 h-4" />
@@ -55,11 +72,11 @@ export default function GridListing() {
               </Button>
             </DrawerTrigger>
             <DrawerContent className="p-0 w-80">
-              <Sidebar filters={filters} />
+              <FilterComponent filters={filters} />
             </DrawerContent>
           </Drawer>
         ) : (
-          <Sidebar filters={filters} />
+          <FilterComponent filters={filters} />
         )}
       </div>
     </div>
