@@ -5,14 +5,8 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
 import { Separator } from "@/components/ui/separator";
-import { ChevronDown, ChevronRight, SlidersHorizontal } from "lucide-react";
-import { Checkbox } from "@/components/ui/checkbox";
+import { SlidersHorizontal } from "lucide-react";
 import {
   CheckboxFilter,
   Filter,
@@ -20,113 +14,13 @@ import {
   RangeSliderFilter,
   SelectFilter,
 } from "@/types";
-import Slider from "@/components/customized/slider";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import CheckboxFilterComponent from "@/components/filter/checkbox-filter-component";
+import RangeSliderFilterComponent from "@/components/filter/range-slider-filter-component";
+import SelectFilterComponent from "@/components/filter/select-filter-component";
 
 interface SidebarProps {
   filters: Filter[];
 }
-
-interface CheckboxFilterProps {
-  filter: CheckboxFilter;
-  filtersOpen: Record<string, boolean>;
-  toggleFilter: (label: string) => void;
-}
-
-const CheckboxFilterComponent = ({
-  filter,
-  filtersOpen,
-  toggleFilter,
-}: CheckboxFilterProps) => {
-  return (
-    <Collapsible
-      open={filtersOpen[filter.label]}
-      onOpenChange={() => toggleFilter(filter.label)}
-    >
-      <CollapsibleTrigger className="flex items-center justify-between w-full text-left">
-        <div className="flex items-center gap-2">
-          {filter.icon && <filter.icon className="w-5 h-5 text-primary" />}
-          <h6 className="font-medium">{filter.label}</h6>
-        </div>
-        <span className="p-2 rounded-md hover:bg-muted transition-colors -me-2">
-          {filtersOpen[filter.label] ? (
-            <ChevronDown className="w-4 h-4" />
-          ) : (
-            <ChevronRight className="w-4 h-4" />
-          )}
-        </span>
-      </CollapsibleTrigger>
-      <CollapsibleContent className="mt-3 space-y-2">
-        {filter.values?.map((value) => (
-          <div key={value.label} className="flex items-center justify-between">
-            <label className="flex items-center gap-2 cursor-pointer">
-              <Checkbox />
-              <span className="text-sm text-muted-foreground">
-                {value.label}
-              </span>
-            </label>
-          </div>
-        ))}
-      </CollapsibleContent>
-    </Collapsible>
-  );
-};
-
-const RangeSliderFilterComponent = ({
-  filter,
-}: {
-  filter: RangeSliderFilter;
-}) => {
-  const [priceRange, setPriceRange] = useState<number[]>([
-    filter.values.min,
-    filter.values.max,
-  ]);
-
-  const [from, to] = priceRange;
-
-  return (
-    <div className="space-y-3">
-      <div className="flex items-center gap-2">
-        {filter.icon && <filter.icon className="h-5 w-5 text-primary" />}
-        <h6 className="text-sm font-medium text-foreground">{filter.label}</h6>
-      </div>
-
-      <div className="flex items-center justify-between text-sm">
-        <span className="text-primary">{from}</span>
-        <span className="text-primary">{to}</span>
-      </div>
-
-      <Slider
-        value={priceRange}
-        onValueChange={setPriceRange}
-        min={filter.values.min}
-        max={filter.values.max}
-        step={1}
-        className="px-2"
-      />
-    </div>
-  );
-};
-
-const SelectFilterComponent = ({ filter }: { filter: SelectFilter }) => {
-  return (
-    <div className="flex justify-between items-center">
-        <h6 className="text-sm font-medium text-foreground">{filter.label}</h6>
-      <Select>
-        <SelectTrigger className="w-40">
-          <SelectValue placeholder="Select an option" />
-        </SelectTrigger>
-        <SelectContent>
-          {filter.values.map((value) => (
-            <SelectItem key={value.label} value={value.label}>
-              {value.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-    </div>
-  );
-};
 
 export default function FilterComponent({ filters }: SidebarProps) {
   const [filtersOpen, setFiltersOpen] = useState<Record<string, boolean>>(
