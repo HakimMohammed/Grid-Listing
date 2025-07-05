@@ -1,0 +1,67 @@
+"use client";
+
+import { Filter, FilterType } from "@/types";
+import { LayoutDashboard, ListChecks, CodeXml , SlidersHorizontal} from "lucide-react";
+import Sidebar from "@/components/sidebar";
+import { useMediaQuery } from "@/hooks/use-media-query";
+import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
+import { Button } from "@/components/ui/button";
+
+const filters: Filter[] = [
+  {
+    label: "Category",
+    icon: LayoutDashboard,
+    type: FilterType.Checkbox,
+    values: [
+      { label: "Electronics", value: "electronics" },
+      { label: "Books", value: "books" },
+      { label: "Clothing", value: "clothing" },
+    ],
+  },
+  {
+    label: "Resource Type",
+    icon: ListChecks,
+    type: FilterType.Checkbox,
+    values: [
+      { label: "API", value: "api" },
+      { label: "Documentation", value: "documentation" },
+      { label: "Tutorial", value: "tutorial" },
+    ],
+  },
+  {
+    label: "Technology Stack",
+    icon: CodeXml,
+    type: FilterType.Checkbox,
+    values: [
+      { label: "JavaScript", value: "javascript" },
+      { label: "Python", value: "python" },
+      { label: "Java", value: "java" },
+      { label: "Ruby", value: "ruby" },
+    ],
+  },
+];
+
+export default function GridListing() {
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  return (
+    <div className="container mx-auto px-4 py-8">
+      <div className="flex flex-col md:flex-row gap-6">
+        {isMobile ? (
+          <Drawer  direction="left">
+            <DrawerTrigger asChild>
+              <Button variant="outline" className="m-4 flex items-center gap-2">
+                <SlidersHorizontal className="w-4 h-4" />
+                Filters
+              </Button>
+            </DrawerTrigger>
+            <DrawerContent className="p-0 w-80">
+              <Sidebar filters={filters} />
+            </DrawerContent>
+          </Drawer>
+        ) : (
+          <Sidebar filters={filters} />
+        )}
+      </div>
+    </div>
+  );
+}
