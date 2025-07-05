@@ -23,10 +23,7 @@ export type CheckboxFilter = BaseFilter & {
 
 export type TextInputFilter = BaseFilter & {
   type: FilterType.TextInput;
-  values: {
-    label: string;
-    value: string;
-  }[];
+  placeholder: string;
 };
 
 export type RangeSliderFilter = BaseFilter & {

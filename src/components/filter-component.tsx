@@ -3,8 +3,6 @@
 import React, { useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { SlidersHorizontal } from "lucide-react";
 import {
@@ -13,10 +11,12 @@ import {
   FilterType,
   RangeSliderFilter,
   SelectFilter,
+  TextInputFilter,
 } from "@/types";
 import CheckboxFilterComponent from "@/components/filter/checkbox-filter-component";
 import RangeSliderFilterComponent from "@/components/filter/range-slider-filter-component";
 import SelectFilterComponent from "@/components/filter/select-filter-component";
+import TextInputFilterComponent from "./filter/text-input-filter-component";
 
 interface SidebarProps {
   filters: Filter[];
@@ -56,6 +56,8 @@ export default function FilterComponent({ filters }: SidebarProps) {
         );
       case FilterType.Select:
         return <SelectFilterComponent filter={filter as SelectFilter} />;
+      case FilterType.TextInput:
+        return <TextInputFilterComponent filter={filter as TextInputFilter} />;
       default:
         return null;
     }
@@ -64,47 +66,14 @@ export default function FilterComponent({ filters }: SidebarProps) {
   return (
     <div className="w-80 bg-card p-6 min-h-screen border rounded-sm border-border">
       <div className="space-y-6">
-        {/* Filters Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <SlidersHorizontal className="w-6 h-6" />
-            <h1 className="text-3xl font-bold">Filters</h1>
+            <SlidersHorizontal className="w-4 h-4" />
+            <h4>Filters</h4>
           </div>
-          <Button variant="outline">Clear all</Button>
-        </div>
-
-        {/* Sort By */}
-        <div className="space-y-3">
-          <h3 className="text-sm font-medium">Sort By</h3>
-          <div className="flex gap-2">
-            <Button
-              //   variant={sortBy === "Free" ? "default" : "outline"}
-              size="sm"
-              //   onClick={() => setSortBy("Free")}
-              className="text-xs"
-            >
-              Free
-            </Button>
-            <Button
-              //   variant={sortBy === "Paid" ? "default" : "outline"}
-              size="sm"
-              //   onClick={() => setSortBy("Paid")}
-              className="text-xs"
-            >
-              Paid
-            </Button>
-          </div>
-        </div>
-
-        {/* Search */}
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-          <Input
-            placeholder="Search for stores ..."
-            // value={searchQuery}
-            // onChange={(e) => setSearchQuery(e.target.value)}
-            className="ps-10 text-foreground placeholder-muted-foreground border-border focus:border-primary focus:ring-0"
-          />
+          <Button variant="ghost" className="text-muted-foreground">
+            Clear all
+          </Button>
         </div>
 
         {filters.map((filter) => (

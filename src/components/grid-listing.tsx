@@ -6,6 +6,8 @@ import {
   ListChecks,
   CodeXml,
   SlidersHorizontal,
+  Search,
+  Settings2,
 } from "lucide-react";
 import FilterComponent from "@/components/filter-component";
 import { useMediaQuery } from "@/hooks/use-media-query";
@@ -18,8 +20,14 @@ import { Button } from "@/components/ui/button";
 
 const filters: Filter[] = [
   {
+    label: "Search",
+    icon: Search,
+    type: FilterType.TextInput,
+    placeholder: "Search for stores ...",
+  },
+  {
     label: "Sort By",
-    icon: SlidersHorizontal,
+    icon: Settings2,
     type: FilterType.Select,
     values: [
       { label: "Relevance", value: "relevance" },

@@ -15,7 +15,10 @@ export default function SelectFilterComponent({
 }) {
   return (
     <div className="flex justify-between items-center">
-      <h6 className="text-sm font-medium text-foreground">{filter.label}</h6>
+      <div className="flex items-center gap-2">
+        {filter.icon && <filter.icon className="w-5 h-5 text-primary" />}
+        <h6 className="text-sm font-medium text-foreground">{filter.label}</h6>
+      </div>
       <Select>
         <SelectTrigger className="w-40">
           <SelectValue placeholder="Select an option" />
