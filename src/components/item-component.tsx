@@ -1,5 +1,9 @@
 import Image from "next/image";
-import { Badge } from "@/components/ui/badge";
+import { Separator } from "./ui/separator";
+import { Filter, FilterType } from "@/types";
+import { List, Grid2X2, Grid3X3 } from "lucide-react";
+import ButtonFilterComponent from "./filter/button-filter-component";
+import { useState } from "react";
 
 const resources = [
   {
@@ -67,32 +71,61 @@ const resources = [
 ];
 
 export default function ItemComponent() {
+  const [display, setDisplay] = useState("grid-3");
+
+  const displays: Filter = {
+    type: FilterType.Buttons,
+    initialValue: display,
+    onChange: (value: string) => setDisplay(value),
+    values: [
+      { value: "list", icon: List, label: "List" },
+      { value: "grid-2", icon: Grid2X2, label: "Grid 2 x 2" },
+      { value: "grid-3", icon: Grid3X3, label: "Grid 3 x 3" },
+      { value: "grid-4", icon: Grid3X3, label: "Grid 4 x 4" },
+    ],
+  };
+
+  const getGridClass = () => {
+    switch (display) {
+      case "grid-2":
+        return "grid-cols-1 sm:grid-cols-2";
+      case "grid-3":
+        return "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3";
+      case "grid-4":
+        return "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4";
+      case "list":
+        return "grid-cols-1";
+      default:
+        return "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3";
+    }
+  };
   return (
     <div className="flex-1">
-      <div className="grid gap-6 mx-6 grid-cols-[repeat(auto-fit,minmax(280px,1fr))]">
-        {" "}
+      <div className="mx-6 flex items-center justify-between mb-6">
+        <h2 className="text-2xl font-bold">Resources</h2>
+        <ButtonFilterComponent filter={displays} />
+      </div>
+      <div className={`grid gap-6 mx-6 ${getGridClass()}`}>
         {resources.map((resource) => (
           <div
             key={resource.id}
-            className="bg-card rounded-lg overflow-hidden hover:bg-muted/50 transition-colors border border-border"
+            className={`bg-card rounded-lg overflow-hidden hover:bg-muted/50 transition-colors border border-border text-center ${display === "list" ? "flex" : ""}`}
           >
             <div className="aspect-video bg-muted relative">
               <Image
-                src={resource.image || "/placeholder.svg"}
+                src=""
                 alt={resource.title}
                 className="w-full h-full object-cover"
                 fill
               />
-              <Badge className="absolute top-3 right-3 bg-green-600 hover:bg-green-600 text-white">
-                {resource.type}
-              </Badge>
             </div>
-            <div className="p-4 space-y-3">
+            <div className="p-4 space-y-3 text-start">
               <div>
                 <h3 className="font-semibold text-lg mb-1">{resource.title}</h3>
                 <p className="text-sm text-muted-foreground mb-2">
                   By {resource.author} in {resource.category}
                 </p>
+                <Separator className="my-4" />
                 <p className="text-sm text-foreground/80">
                   {resource.description}
                 </p>

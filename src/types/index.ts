@@ -9,7 +9,7 @@ export enum FilterType {
 }
 
 type BaseFilter = {
-  label: string;
+  label?: string;
   icon?: ComponentType<SVGProps<SVGSVGElement>>;
 };
 
@@ -44,6 +44,8 @@ export type SelectFilter = BaseFilter & {
 
 export type ButtonsFilter = BaseFilter & {
   type: FilterType.Buttons;
+  initialValue?: string;
+  onChange?: (value: string) => void;
   values: {
     label?: string;
     icon?: ComponentType<SVGProps<SVGSVGElement>>;
