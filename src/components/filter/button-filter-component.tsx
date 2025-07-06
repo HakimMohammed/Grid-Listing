@@ -19,9 +19,10 @@ export default function ButtonFilterComponent({
             key={index}
             variant={value.icon ? "outline" : "default"}
             size={value.icon ? "lg" : "sm"}
-            className="rounded-sm"
+            className="rounded-sm p-0"
+            title={value.label}
           >
-            {value.icon ? <value.icon /> : value.label}
+            {value.icon ? <value.icon className="w-8 h-8" /> : value.label}
           </Button>
         ))}
       </div>

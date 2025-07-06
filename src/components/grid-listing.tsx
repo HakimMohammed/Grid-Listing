@@ -20,6 +20,7 @@ import {
   DrawerTrigger,
 } from "@/components/customized/drawer";
 import { Button } from "@/components/ui/button";
+import ItemComponent from "@/components/item-component";
 
 const filters: Filter[] = [
   {
@@ -45,10 +46,10 @@ const filters: Filter[] = [
     icon: LayoutDashboard,
     type: FilterType.Buttons,
     values: [
-      { value: "list", icon: List },
-      { value: "grid-2", icon: Grid2X2 },
-      { value: "grid-3", icon: Grid3X3 },
-      { value: "grid-4", icon: Grid3X3 },
+      { value: "list", icon: List, label: "List" },
+      { value: "grid-2", icon: Grid2X2, label: "Grid 2" },
+      { value: "grid-3", icon: Grid3X3, label: "Grid 3" },
+      { value: "grid-4", icon: Grid3X3, label: "Grid 4" },
     ],
   },
   {
@@ -112,6 +113,7 @@ export default function GridListing() {
         ) : (
           <FilterComponent filters={filters} />
         )}
+        <ItemComponent />
       </div>
     </div>
   );
