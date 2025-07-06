@@ -20,7 +20,7 @@ import {
   DrawerTrigger,
 } from "@/components/customized/drawer";
 import { Button } from "@/components/ui/button";
-import ItemComponent from "@/components/item-component";
+import ItemsListComponent from "@/components/items-list-component";
 
 const filters: Filter[] = [
   {
@@ -113,7 +113,7 @@ export default function GridListing() {
         ) : (
           <FilterComponent filters={filters} />
         )}
-        <ItemComponent />
+        <ItemsListComponent />
       </div>
     </div>
   );
