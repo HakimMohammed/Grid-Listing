@@ -1,8 +1,10 @@
 import { Filter, FilterType } from "@/types";
 import { List, Grid2X2, Grid3X3 } from "lucide-react";
-import ButtonFilterComponent from "./filter/button-filter-component";
+import ButtonFilterComponent from "../sidebar/filter-components/button-filter-component";
 import { useState } from "react";
 import ItemComponent from "./item-component";
+import { Dialog, DialogTrigger, DialogContent} from "@/components/ui/dialog";
+import ItemDetailsComponent from "./item-details-component";
 
 const resources = [
   {
@@ -106,11 +108,17 @@ export default function ItemsListComponent() {
       </div>
       <div className={`grid gap-6 mx-6 ${getGridClass()}`}>
         {resources.map((resource) => (
-          <ItemComponent
-            resource={resource}
-            key={resource.id}
-            className={display === "list" ? "flex" : ""}
-          />
+          <Dialog key={resource.id}>
+            <DialogTrigger asChild>
+              <ItemComponent
+                resource={resource}
+                className={display === "list" ? "flex" : ""}
+              />
+            </DialogTrigger>
+            <DialogContent className="min-w-max">
+              <ItemDetailsComponent />
+            </DialogContent>
+          </Dialog>
         ))}
       </div>
     </div>

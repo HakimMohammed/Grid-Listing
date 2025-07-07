@@ -12,7 +12,7 @@ import {
   Grid2X2,
   Grid3X3,
 } from "lucide-react";
-import FilterComponent from "@/components/filter-component";
+import FilterSidebarComponent from "@/components/grid-listing/sidebar/filter-sidebar-component";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import {
   Drawer,
@@ -20,7 +20,7 @@ import {
   DrawerTrigger,
 } from "@/components/customized/drawer";
 import { Button } from "@/components/ui/button";
-import ItemsListComponent from "@/components/items-list-component";
+import ItemsListComponent from "@/components/grid-listing/items-list/items-list-component";
 
 const filters: Filter[] = [
   {
@@ -107,11 +107,11 @@ export default function GridListing() {
               </Button>
             </DrawerTrigger>
             <DrawerContent className="p-0 w-80">
-              <FilterComponent filters={filters} />
+              <FilterSidebarComponent filters={filters} />
             </DrawerContent>
           </Drawer>
         ) : (
-          <FilterComponent filters={filters} />
+          <FilterSidebarComponent filters={filters} />
         )}
         <ItemsListComponent />
       </div>

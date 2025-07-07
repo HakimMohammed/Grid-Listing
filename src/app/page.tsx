@@ -1,4 +1,4 @@
-import GridListing from "@/components/grid-listing";
+import GridListing from "@/components/grid-listing/grid-listing";
 
 export default function Home() {
   return (

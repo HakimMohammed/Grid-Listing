@@ -14,17 +14,17 @@ import {
   SelectFilter,
   TextInputFilter,
 } from "@/types";
-import CheckboxFilterComponent from "@/components/filter/checkbox-filter-component";
-import RangeSliderFilterComponent from "@/components/filter/range-slider-filter-component";
-import SelectFilterComponent from "@/components/filter/select-filter-component";
-import TextInputFilterComponent from "@/components/filter/text-input-filter-component";
-import ButtonFilterComponent from "@/components/filter/button-filter-component";
+import CheckboxFilterComponent from "@/components/grid-listing/sidebar/filter-components/checkbox-filter-component";
+import RangeSliderFilterComponent from "@/components/grid-listing/sidebar/filter-components/range-slider-filter-component";
+import SelectFilterComponent from "@/components/grid-listing/sidebar/filter-components/select-filter-component";
+import TextInputFilterComponent from "@/components/grid-listing/sidebar/filter-components/text-input-filter-component";
+import ButtonFilterComponent from "@/components/grid-listing/sidebar/filter-components/button-filter-component";
 
 interface SidebarProps {
   filters: Filter[];
 }
 
-export default function FilterComponent({ filters }: SidebarProps) {
+export default function FilterSidebarComponent({ filters }: SidebarProps) {
   const [filtersOpen, setFiltersOpen] = useState<Record<string, boolean>>(
     () => {
       const initialState: Record<string, boolean> = {};
