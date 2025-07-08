@@ -42,16 +42,20 @@ export type SelectFilter = BaseFilter & {
   }[];
 };
 
+type ButtonsFilterValue = {
+  label?: string;
+  icon?: ComponentType<SVGProps<SVGSVGElement>>;
+  value: string;
+  itemsPerPage?: number;
+};
+
 export type ButtonsFilter = BaseFilter & {
   type: FilterType.Buttons;
   initialValue?: string;
   onChange?: (value: string) => void;
-  values: {
-    label?: string;
-    icon?: ComponentType<SVGProps<SVGSVGElement>>;
-    value: string;
-  }[];
+  values: ButtonsFilterValue[];
 };
+
 export type Filter =
   | CheckboxFilter
   | TextInputFilter

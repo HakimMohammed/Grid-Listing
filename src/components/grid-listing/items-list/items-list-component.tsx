@@ -1,10 +1,19 @@
-import { Filter, FilterType } from "@/types";
+import { ButtonsFilter, FilterType } from "@/types";
 import { List, Grid2X2, Grid3X3 } from "lucide-react";
 import ButtonFilterComponent from "../sidebar/filter-components/button-filter-component";
 import { useState } from "react";
 import ItemComponent from "./item-component";
-import { Dialog, DialogTrigger, DialogContent} from "@/components/ui/dialog";
+import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
 import ItemDetailsComponent from "./item-details-component";
+
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationPrevious,
+  PaginationNext,
+} from "@/components/ui/pagination";
 
 const resources = [
   {
@@ -73,16 +82,40 @@ const resources = [
 
 export default function ItemsListComponent() {
   const [display, setDisplay] = useState("grid-3");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(6);
 
-  const displays: Filter = {
+  const totalPages = Math.ceil(resources.length / itemsPerPage);
+
+  const paginatedResources = resources.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  const handlePageChange = (page: number) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
+
+  const handleDisplayChange = (value: string) => {
+    const found = displays.values.find((v) => v.value === value);
+    if (!found) return;
+
+    setDisplay(value);
+    setItemsPerPage(found.itemsPerPage ?? 6);
+    setCurrentPage(1);
+  };
+
+  const displays: ButtonsFilter = {
     type: FilterType.Buttons,
     initialValue: display,
-    onChange: (value: string) => setDisplay(value),
+    onChange: handleDisplayChange,
     values: [
-      { value: "list", icon: List, label: "List" },
-      { value: "grid-2", icon: Grid2X2, label: "Grid 2 x 2" },
-      { value: "grid-3", icon: Grid3X3, label: "Grid 3 x 3" },
-      { value: "grid-4", icon: Grid3X3, label: "Grid 4 x 4" },
+      { value: "list", icon: List, label: "List", itemsPerPage: 4 },
+      { value: "grid-2", icon: Grid2X2, label: "Grid 2 x 2", itemsPerPage: 4 },
+      { value: "grid-3", icon: Grid3X3, label: "Grid 3 x 3", itemsPerPage: 6 },
+      { value: "grid-4", icon: Grid3X3, label: "Grid 4 x 4", itemsPerPage: 8 },
     ],
   };
 
@@ -100,6 +133,7 @@ export default function ItemsListComponent() {
         return "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3";
     }
   };
+
   return (
     <div className="flex-1">
       <div className="mx-6 flex items-center justify-between mb-6">
@@ -107,7 +141,7 @@ export default function ItemsListComponent() {
         <ButtonFilterComponent filter={displays} />
       </div>
       <div className={`grid gap-6 mx-6 ${getGridClass()}`}>
-        {resources.map((resource) => (
+        {paginatedResources.map((resource) => (
           <Dialog key={resource.id}>
             <DialogTrigger asChild>
               <ItemComponent
@@ -120,6 +154,42 @@ export default function ItemsListComponent() {
             </DialogContent>
           </Dialog>
         ))}
+      </div>
+
+      <div className="flex justify-center mt-8">
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                onClick={() => handlePageChange(currentPage - 1)}
+                className={`cursor-pointer ${
+                  currentPage === 1 ? "pointer-events-none opacity-50" : ""
+                }`}
+              />
+            </PaginationItem>
+            {Array.from({ length: totalPages }, (_, i) => (
+              <PaginationItem key={i + 1}>
+                <PaginationLink
+                  className="cursor-pointer"
+                  isActive={currentPage === i + 1}
+                  onClick={() => handlePageChange(i + 1)}
+                >
+                  {i + 1}
+                </PaginationLink>
+              </PaginationItem>
+            ))}
+            <PaginationItem>
+              <PaginationNext
+                onClick={() => handlePageChange(currentPage + 1)}
+                className={`cursor-pointer ${
+                  currentPage === totalPages
+                    ? "pointer-events-none opacity-50"
+                    : ""
+                }`}
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
       </div>
     </div>
   );

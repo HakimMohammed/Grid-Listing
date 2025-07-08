@@ -11,7 +11,7 @@ export default function ItemComponent({
   return (
     <div
       className={`bg-card rounded-lg hover:cursor-pointer transition-transform duration-200 ease-in-out 
-                   hover:scale-105 overflow-hidden hover:m-2 border border-border text-center ${className}`}
+                   hover:scale-105 overflow-hidden border border-border text-center ${className}`}
     >
       <div className="aspect-video bg-muted relative">
         <Image
