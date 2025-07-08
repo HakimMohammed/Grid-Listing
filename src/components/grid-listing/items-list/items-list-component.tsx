@@ -1,10 +1,10 @@
+"use client";
+
 import { ButtonsFilter, FilterType } from "@/types";
 import { List, Grid2X2, Grid3X3 } from "lucide-react";
 import ButtonFilterComponent from "../sidebar/filter-components/button-filter-component";
 import { useState } from "react";
-import ItemComponent from "./item-component";
 import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
-import ItemDetailsComponent from "./item-details-component";
 
 import {
   Pagination,
@@ -14,6 +14,9 @@ import {
   PaginationPrevious,
   PaginationNext,
 } from "@/components/ui/pagination";
+import ItemDetailsComponent from "./item-details-component";
+import ItemComponent from "./item-component";
+import { Button } from "@/components/ui/button";
 
 const resources = [
   {
@@ -145,17 +148,16 @@ export default function ItemsListComponent() {
           <Dialog key={resource.id}>
             <DialogTrigger asChild>
               <ItemComponent
+                className="cursor-pointer"
                 resource={resource}
-                className={display === "list" ? "flex" : ""}
               />
             </DialogTrigger>
-            <DialogContent className="min-w-max">
+            <DialogContent className="min-w-max" >
               <ItemDetailsComponent />
             </DialogContent>
           </Dialog>
         ))}
       </div>
-
       <div className="flex justify-center mt-8">
         <Pagination>
           <PaginationContent>

@@ -1,17 +1,20 @@
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
+import { forwardRef } from "react";
 
-export default function ItemComponent({
-  className,
-  resource,
-}: {
-  className?: string;
-  resource: any;
-}) {
+const ItemComponent = forwardRef<
+  HTMLButtonElement,
+  {
+    className?: string;
+    resource: any;
+  }
+>(({ className, resource, ...props }, ref) => {
   return (
-    <div
-      className={`bg-card rounded-lg hover:cursor-pointer transition-transform duration-200 ease-in-out 
-                   hover:scale-105 overflow-hidden border border-border text-center ${className}`}
+    <button
+      ref={ref}
+      type="button"
+      className={`bg-card rounded-lg transition-transform duration-200 ease-in-out hover:scale-105 overflow-hidden border border-border text-start text-left ${className}`}
+      {...props}
     >
       <div className="aspect-video bg-muted relative">
         <Image
@@ -21,7 +24,7 @@ export default function ItemComponent({
           fill
         />
       </div>
-      <div className="p-4 space-y-3 text-start">
+      <div className="p-4 space-y-3">
         <div>
           <h3 className="font-semibold text-lg mb-1">{resource.title}</h3>
           <p className="text-sm text-muted-foreground mb-2">
@@ -43,6 +46,10 @@ export default function ItemComponent({
           ))}
         </div>
       </div>
-    </div>
+    </button>
   );
-}
+});
+
+ItemComponent.displayName = "ItemComponent";
+
+export default ItemComponent;
