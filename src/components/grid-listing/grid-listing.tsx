@@ -21,6 +21,7 @@ import {
 } from "@/components/customized/drawer";
 import { Button } from "@/components/ui/button";
 import ItemsListComponent from "@/components/grid-listing/items-list/items-list-component";
+import { products } from "@/data";
 
 const filters: Filter[] = [
   {
@@ -113,7 +114,7 @@ export default function GridListing() {
         ) : (
           <FilterSidebarComponent filters={filters} />
         )}
-        <ItemsListComponent />
+        <ItemsListComponent resources={products} />
       </div>
     </div>
   );

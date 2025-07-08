@@ -16,74 +16,9 @@ import {
 } from "@/components/ui/pagination";
 import ItemDetailsComponent from "./item-details-component";
 import ItemComponent from "./item-component";
-import { Button } from "@/components/ui/button";
+import { Product } from "@/data";
 
-const resources = [
-  {
-    id: 1,
-    title: "Rust shadcn/ui",
-    description: "Beautifully designed components that you can copy and paste.",
-    author: "Open Source",
-    category: "Components",
-    type: "FREE",
-    image: "/placeholder.svg?height=200&width=300",
-    tags: ["React", "TypeScript", "Tailwind"],
-  },
-  {
-    id: 2,
-    title: "Shadcn/Studio - Theme Editor",
-    description: "Open-source Shadcn registry with copy-paste components.",
-    author: "ThemeSelection",
-    category: "Components",
-    type: "FREE",
-    image: "/placeholder.svg?height=200&width=300",
-    tags: ["React", "Next.js", "TypeScript"],
-  },
-  {
-    id: 3,
-    title: "Grida",
-    description:
-      "Open source Canvas where you can design & build web applications.",
-    author: "Open Source",
-    category: "Templates",
-    type: "FREE",
-    image: "/placeholder.svg?height=200&width=300",
-    tags: ["React", "HTML", "Supabase", "TypeScript"],
-  },
-  {
-    id: 4,
-    title: "TimePicker",
-    description: "A time picker component for your shadcn ui app",
-    author: "OpenStatus",
-    category: "Components",
-    type: "FREE",
-    image: "/placeholder.svg?height=200&width=300",
-    tags: ["React", "TypeScript", "Tailwind"],
-  },
-  {
-    id: 5,
-    title: "Shadcn Chatbot Kit",
-    description: "Beautifully designed chatbot components based on shadcn/ui",
-    author: "Blazity",
-    category: "Components",
-    type: "FREE",
-    image: "/placeholder.svg?height=200&width=300",
-    tags: ["React", "TypeScript", "Tailwind"],
-  },
-  {
-    id: 6,
-    title: "Shadcn Svelte",
-    description:
-      "Beautifully designed components built with Bits UI and Tailwind CSS.",
-    author: "Open Source",
-    category: "Components",
-    type: "FREE",
-    image: "/placeholder.svg?height=200&width=300",
-    tags: ["Svelte", "TypeScript", "Tailwind"],
-  },
-];
-
-export default function ItemsListComponent() {
+export default function ItemsListComponent({ resources }: { resources: Product[] }) {
   const [display, setDisplay] = useState("grid-3");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(6);
@@ -148,11 +83,11 @@ export default function ItemsListComponent() {
           <Dialog key={resource.id}>
             <DialogTrigger asChild>
               <ItemComponent
-                className="cursor-pointer"
+                className={`cursor-pointer ${display === "list" ? "flex" : ""}`}
                 resource={resource}
               />
             </DialogTrigger>
-            <DialogContent className="min-w-max" >
+            <DialogContent className="min-w-max">
               <ItemDetailsComponent />
             </DialogContent>
           </Dialog>
