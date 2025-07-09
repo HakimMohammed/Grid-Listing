@@ -88,7 +88,7 @@ export default function ItemsListComponent({ resources }: { resources: Product[]
               />
             </DialogTrigger>
             <DialogContent className="min-w-max">
-              <ItemDetailsComponent />
+              <ItemDetailsComponent resource={resource}/>
             </DialogContent>
           </Dialog>
         ))}

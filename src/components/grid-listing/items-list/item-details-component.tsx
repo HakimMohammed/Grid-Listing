@@ -1,15 +1,20 @@
 import { Button } from "@/components/ui/button";
+import { Product } from "@/data";
 import { Star, Truck, ShieldCheck, Heart } from "lucide-react";
 import Image from "next/image";
 
-export default function ItemDetailsComponent() {
+export default function ItemDetailsComponent({
+  resource,
+}: {
+  resource: Product;
+}) {
   return (
     <div className="w-full max-w-7xl mx-auto p-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Product Image */}
         <div className="relative aspect-square bg-muted rounded-lg overflow-hidden">
           <Image
-            src="https://images.unsplash.com/photo-1523275335684-37898b6baf30"
+            src={resource.image}
             alt="Modern watch with leather strap"
             className="object-cover w-full h-full"
             width={700}
@@ -41,9 +46,9 @@ export default function ItemDetailsComponent() {
             </div>
           </div>
 
-          <h1 className="text-3xl font-bold mb-2">Classic Leather Watch</h1>
+          <h1 className="text-3xl font-bold mb-2">{resource.label}</h1>
           <div className="flex items-baseline gap-4 mb-6">
-            <span className="text-2xl font-bold">$299.00</span>
+            <span className="text-2xl font-bold">${resource.price}</span>
             <span className="text-lg text-muted-foreground line-through">
               $399.00
             </span>
@@ -51,9 +56,7 @@ export default function ItemDetailsComponent() {
           </div>
 
           <p className="text-muted-foreground mb-6">
-            Elevate your style with our Classic Leather Watch. Featuring premium
-            materials, precise movement, and timeless design that complements
-            any outfit.
+            {resource.description}
           </p>
 
           <div className="grid grid-cols-2 gap-4 mb-8">
