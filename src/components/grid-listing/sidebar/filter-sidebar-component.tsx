@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, {Dispatch, SetStateAction, useState} from "react";
 
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -19,12 +19,15 @@ import RangeSliderFilterComponent from "@/components/grid-listing/sidebar/filter
 import SelectFilterComponent from "@/components/grid-listing/sidebar/filter-components/select-filter-component";
 import TextInputFilterComponent from "@/components/grid-listing/sidebar/filter-components/text-input-filter-component";
 import ButtonFilterComponent from "@/components/grid-listing/sidebar/filter-components/button-filter-component";
+import {Product} from "@/data";
 
 interface SidebarProps {
   filters: Filter[];
+  data: Product[];
+  setData: Dispatch<SetStateAction<Product[]>>
 }
 
-export default function FilterSidebarComponent({ filters }: SidebarProps) {
+export default function FilterSidebarComponent({ filters, data, setData }: SidebarProps) {
   const [filtersOpen, setFiltersOpen] = useState<Record<string, boolean>>(
     () => {
       const initialState: Record<string, boolean> = {};
@@ -59,7 +62,7 @@ export default function FilterSidebarComponent({ filters }: SidebarProps) {
       case FilterType.Select:
         return <SelectFilterComponent filter={filter as SelectFilter} />;
       case FilterType.TextInput:
-        return <TextInputFilterComponent filter={filter as TextInputFilter} />;
+        return <TextInputFilterComponent filter={filter as TextInputFilter} data={data} onSearch={setData} />;
       case FilterType.Buttons:
         return <ButtonFilterComponent filter={filter as ButtonsFilter} />;
       default:

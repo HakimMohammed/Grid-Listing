@@ -1,4 +1,5 @@
 import { ComponentType, SVGProps } from "react";
+import {Product} from "@/data";
 
 export enum FilterType {
   Checkbox = "checkbox",
@@ -9,7 +10,8 @@ export enum FilterType {
 }
 
 type BaseFilter = {
-  label?: string;
+  label: string;
+  fields: (keyof Product)[];
   icon?: ComponentType<SVGProps<SVGSVGElement>>;
 };
 
