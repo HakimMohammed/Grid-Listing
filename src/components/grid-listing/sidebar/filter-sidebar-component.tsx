@@ -53,6 +53,8 @@ export default function FilterSidebarComponent({ filters, activeFilterValues, se
         return (
           <CheckboxFilterComponent
             filter={filter as CheckboxFilter}
+            value={activeFilterValues[filter.label] as string[]}
+            onFilter={(val) => setFilterValue(filter.label, val)}
             filtersOpen={filtersOpen}
             toggleFilter={toggleFilter}
           />

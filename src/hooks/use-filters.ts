@@ -92,7 +92,7 @@ export function useFilters(filters: Filter[], originalData: Product[]) {
 
                         return filter.fields.some((field) => {
                             const itemValue = item[field];
-                            return selected.includes(String(itemValue));
+                            return selected.includes(String(itemValue).toLowerCase());
                         });
                     }
 
