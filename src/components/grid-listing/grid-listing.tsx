@@ -23,6 +23,7 @@ import {Button} from "@/components/ui/button";
 import ItemsListComponent from "@/components/grid-listing/items-list/items-list-component";
 import {Product, products} from "@/data";
 import {useEffect, useState} from "react";
+import {useFilters} from "@/hooks/use-filters";
 
 // const filters: Filter[] = [
 //   {
@@ -101,20 +102,20 @@ const filters: Filter[] = [
         icon: Search,
         type: FilterType.TextInput,
         placeholder: "Search for stores ...",
-        fields: ["label"]
+        fields: ["label", "description"]
     },
 ]
 
 export default function GridListing() {
 
-    const [data, setData] = useState<Product[]>([]);
-    const [originalData, setOriginalData] = useState<Product[]>([]);
     const isMobile = useMediaQuery("(max-width: 768px)");
+    const {
+        filteredData,
+        setFilterValue,
+        resetAllFilters,
+        activeFilterValues
+    } = useFilters(filters, products);
 
-    useEffect(() => {
-        setData(products);
-        setOriginalData(products);
-    }, [])
     return (
         <div className="container mx-auto px-4 py-8">
             <div className="flex flex-col md:flex-row gap-6">
@@ -127,13 +128,23 @@ export default function GridListing() {
                             </Button>
                         </DrawerTrigger>
                         <DrawerContent className="p-0 w-80">
-                            <FilterSidebarComponent filters={filters} data={originalData} setData={setData}/>
+                            <FilterSidebarComponent
+                                filters={filters}
+                                activeFilterValues={activeFilterValues}
+                                setFilterValue={setFilterValue}
+                                resetAllFilters={resetAllFilters}
+                            />
                         </DrawerContent>
                     </Drawer>
                 ) : (
-                    <FilterSidebarComponent filters={filters} data={originalData} setData={setData}/>
+                    <FilterSidebarComponent
+                        filters={filters}
+                        activeFilterValues={activeFilterValues}
+                        setFilterValue={setFilterValue}
+                        resetAllFilters={resetAllFilters}
+                    />
                 )}
-                <ItemsListComponent resources={data}/>
+                <ItemsListComponent resources={filteredData}/>
             </div>
         </div>
     );
