@@ -99,8 +99,10 @@ export function useFilters(filters: Filter[], originalData: Product[]) {
                     case FilterType.RangeSlider: {
                         const [min, max] = value as [number, number];
                         return filter.fields.every((field) => {
+
                             const itemValue = item[field];
                             return typeof itemValue === "number" && itemValue >= min && itemValue <= max;
+
                         });
                     }
 

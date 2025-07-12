@@ -17,6 +17,7 @@ import {
 import ItemDetailsComponent from "./item-details-component";
 import ItemComponent from "./item-component";
 import { Product } from "@/data";
+import {useMediaQuery} from "@/hooks/use-media-query";
 
 export default function ItemsListComponent({ resources }: { resources: Product[] }) {
   const [display, setDisplay] = useState("grid-3");
@@ -24,6 +25,7 @@ export default function ItemsListComponent({ resources }: { resources: Product[]
   const [itemsPerPage, setItemsPerPage] = useState(6);
 
   const totalPages = Math.ceil(resources.length / itemsPerPage);
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   const paginatedResources = resources.slice(
     (currentPage - 1) * itemsPerPage,
@@ -76,7 +78,7 @@ export default function ItemsListComponent({ resources }: { resources: Product[]
     <div className="flex-1">
       <div className="mx-6 flex items-center justify-between mb-6">
         <h2 className="text-2xl font-bold">Resources</h2>
-        <ButtonFilterComponent filter={displays} />
+        {!isMobile && <ButtonFilterComponent filter={displays} />}
       </div>
       <div className={`grid gap-6 mx-6 ${getGridClass()}`}>
         {paginatedResources.map((resource) => (

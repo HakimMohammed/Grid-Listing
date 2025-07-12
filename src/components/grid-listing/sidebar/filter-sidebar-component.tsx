@@ -59,7 +59,11 @@ export default function FilterSidebarComponent({ filters, activeFilterValues, se
         );
       case FilterType.RangeSlider:
         return (
-          <RangeSliderFilterComponent filter={filter as RangeSliderFilter} />
+          <RangeSliderFilterComponent
+              filter={filter as RangeSliderFilter}
+              value={activeFilterValues[filter.label] as [number, number]}
+              onFilter={(val) => setFilterValue(filter.label, val)}
+          />
         );
       case FilterType.Select:
         return <SelectFilterComponent filter={filter as SelectFilter} />;

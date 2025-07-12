@@ -3,14 +3,8 @@
 import {Filter, FilterType} from "@/types";
 import {
     LayoutDashboard,
-    ListChecks,
-    CodeXml,
     SlidersHorizontal,
     Search,
-    Settings2,
-    List,
-    Grid2X2,
-    Grid3X3,
 } from "lucide-react";
 import FilterSidebarComponent from "@/components/grid-listing/sidebar/filter-sidebar-component";
 import {useMediaQuery} from "@/hooks/use-media-query";
@@ -21,8 +15,7 @@ import {
 } from "@/components/customized/drawer";
 import {Button} from "@/components/ui/button";
 import ItemsListComponent from "@/components/grid-listing/items-list/items-list-component";
-import {Product, products} from "@/data";
-import {useEffect, useState} from "react";
+import {products} from "@/data";
 import {useFilters} from "@/hooks/use-filters";
 
 // const filters: Filter[] = [
@@ -103,6 +96,36 @@ const filters: Filter[] = [
         type: FilterType.TextInput,
         placeholder: "Search for stores ...",
         fields: ["label", "description"]
+    },
+    {
+        label: "Price",
+        type: FilterType.RangeSlider,
+        values: {
+            min: 0,
+            max: 1000,
+        },
+        fields: ["price"]
+    },
+    {
+        label: "Category",
+        icon: LayoutDashboard,
+        type: FilterType.Checkbox,
+        fields: ["category"],
+        values: [
+            {label: "Audio", value: "audio"},
+            {label: "Wearables", value: "wearables"},
+            {label: "Accessories", value: "accessories"},
+            {label: "Shirts", value: "shirts"},
+            {label: "Jeans", value: "jeans"},
+            {label: "Fertilizers", value: "fertilizers"},
+            {label: "Tools", value: "tools"},
+            {label: "Technology", value: "technology"},
+            {label: "Fiction", value: "fiction"},
+            {label: "Tennis", value: "tennis"},
+            {label: "Footwear", value: "footwear"},
+            {label: "Coffee", value: "coffee"},
+            {label: "Sweets", value: "sweets"},
+        ],
     },
 ]
 
