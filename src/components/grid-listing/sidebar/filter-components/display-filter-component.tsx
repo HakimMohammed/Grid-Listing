@@ -30,9 +30,8 @@ export default function DisplayFilterComponent({
       <div className="flex items-center gap-2 justify-around flex-wrap">
         {filter.values.map((value, index) => (
           <Tooltip key={index}>
-            <TooltipTrigger>
+            <TooltipTrigger asChild>
               <Button
-                key={index}
                 variant={selected === value.value ? "default" : "outline"}
                 size={value.icon ? "lg" : "sm"}
                 className="rounded-sm"
