@@ -1,6 +1,6 @@
 "use client";
 
-import { ButtonsFilter, FilterType } from "@/types";
+import { DisplayFilter } from "@/types";
 import { List, Grid2X2, Grid3X3 } from "lucide-react";
 import ButtonFilterComponent from "../sidebar/filter-components/button-filter-component";
 import { useState } from "react";
@@ -17,15 +17,19 @@ import {
 import ItemDetailsComponent from "./item-details-component";
 import ItemComponent from "./item-component";
 import { Product } from "@/data";
-import {useMediaQuery} from "@/hooks/use-media-query";
+import { useMediaQuery } from "@/hooks/use-media-query";
 
-export default function ItemsListComponent({ resources }: { resources: Product[] }) {
+export default function ItemsListComponent({
+  resources,
+}: {
+  resources: Product[];
+}) {
   const [display, setDisplay] = useState("grid-3");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(6);
 
   const totalPages = Math.ceil(resources.length / itemsPerPage);
-  const isMobile = useMediaQuery('(max-width: 768px)');
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   const paginatedResources = resources.slice(
     (currentPage - 1) * itemsPerPage,
@@ -47,8 +51,7 @@ export default function ItemsListComponent({ resources }: { resources: Product[]
     setCurrentPage(1);
   };
 
-  const displays: ButtonsFilter = {
-    type: FilterType.Buttons,
+  const displays: DisplayFilter = {
     initialValue: display,
     onChange: handleDisplayChange,
     values: [
@@ -90,7 +93,7 @@ export default function ItemsListComponent({ resources }: { resources: Product[]
               />
             </DialogTrigger>
             <DialogContent className="min-w-max">
-              <ItemDetailsComponent resource={resource}/>
+              <ItemDetailsComponent resource={resource} />
             </DialogContent>
           </Dialog>
         ))}

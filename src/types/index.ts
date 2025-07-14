@@ -36,31 +36,44 @@ export type RangeSliderFilter = BaseFilter & {
   };
 };
 
-export type SelectFilter = BaseFilter & {
-  type: FilterType.Select;
+export type DisplayFilter = {
+  initialValue: string;
+  onChange?: (value: string) => void;
   values: {
     label: string;
     value: string;
+    icon: ComponentType<SVGProps<SVGSVGElement>>;
+    itemsPerPage: number;
   }[];
-};
+}
 
-type ButtonsFilterValue = {
-  label?: string;
-  icon?: ComponentType<SVGProps<SVGSVGElement>>;
-  value: string;
-  itemsPerPage?: number;
-};
+// export type SelectFilter = BaseFilter & {
+//   type: FilterType.Select;
+//   values: {
+//     label: string;
+//     value: string;
+//     field: keyof Product;
+//     direction: "asc" | "desc";
+//   }[];
+// };
 
-export type ButtonsFilter = BaseFilter & {
-  type: FilterType.Buttons;
-  initialValue?: string;
-  onChange?: (value: string) => void;
-  values: ButtonsFilterValue[];
-};
+// type ButtonsFilterValue = {
+//   label?: string;
+//   icon?: ComponentType<SVGProps<SVGSVGElement>>;
+//   value: string;
+//   itemsPerPage?: number;
+// };
+
+// export type ButtonsFilter = BaseFilter & {
+//   type: FilterType.Buttons;
+//   initialValue?: string;
+//   onChange?: (value: string) => void;
+//   values: ButtonsFilterValue[];
+// };
 
 export type Filter =
   | CheckboxFilter
   | TextInputFilter
-  | RangeSliderFilter
-  | SelectFilter
-  | ButtonsFilter;
+  | RangeSliderFilter;
+  // | SelectFilter
+  // | ButtonsFilter;

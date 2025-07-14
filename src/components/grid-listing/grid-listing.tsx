@@ -94,6 +94,37 @@ const filters: Filter[] = [
     fields: ["label", "description"],
   },
   {
+    type: FilterType.Select,
+    label: "Sort by",
+    fields: [],
+    values: [
+      {
+        label: "Price: Low to High",
+        value: "price-asc",
+        field: "price",
+        direction: "asc",
+      },
+      {
+        label: "Price: High to Low",
+        value: "price-desc",
+        field: "price",
+        direction: "desc",
+      },
+      {
+        label: "Name: A to Z",
+        value: "name-asc",
+        field: "label",
+        direction: "asc",
+      },
+      {
+        label: "Name: Z to A",
+        value: "name-desc",
+        field: "label",
+        direction: "desc",
+      },
+    ],
+  },
+  {
     label: "Price",
     type: FilterType.RangeSlider,
     values: {
@@ -123,6 +154,7 @@ const filters: Filter[] = [
       { label: "Sweets", value: "sweets" },
     ],
   },
+  
 ];
 
 export default function GridListing() {
