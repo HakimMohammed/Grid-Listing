@@ -6,19 +6,15 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { SlidersHorizontal } from "lucide-react";
 import {
-  ButtonsFilter,
   CheckboxFilter,
   Filter,
   FilterType,
   RangeSliderFilter,
-  SelectFilter,
   TextInputFilter,
 } from "@/types";
 import CheckboxFilterComponent from "@/components/grid-listing/sidebar/filter-components/checkbox-filter-component";
 import RangeSliderFilterComponent from "@/components/grid-listing/sidebar/filter-components/range-slider-filter-component";
-import SelectFilterComponent from "@/components/grid-listing/sidebar/filter-components/select-filter-component";
 import TextInputFilterComponent from "@/components/grid-listing/sidebar/filter-components/text-input-filter-component";
-import ButtonFilterComponent from "@/components/grid-listing/sidebar/filter-components/button-filter-component";
 import { FilterState, FilterValue } from "@/hooks/use-filters";
 
 interface SidebarProps {
@@ -71,14 +67,6 @@ export default function FilterSidebarComponent({
             onFilter={(val) => setFilterValue(filter.label, val)}
           />
         );
-      // case FilterType.Select:
-      //   return (
-      //     <SelectFilterComponent
-      //       filter={filter as SelectFilter}
-      //       value={activeFilterValues[filter.label] as string}
-      //       onFilter={(val) => setFilterValue(filter.label, val)}
-      //     />
-      //   );
       case FilterType.TextInput:
         return (
           <TextInputFilterComponent
@@ -87,8 +75,6 @@ export default function FilterSidebarComponent({
             onFilter={(val) => setFilterValue(filter.label, val)}
           />
         );
-      // case FilterType.Buttons:
-      //   return <ButtonFilterComponent filter={filter as ButtonsFilter} />;
       default:
         return null;
     }

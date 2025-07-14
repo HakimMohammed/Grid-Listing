@@ -1,12 +1,10 @@
 import { ComponentType, SVGProps } from "react";
-import {Product} from "@/data";
+import { Product } from "@/data";
 
 export enum FilterType {
   Checkbox = "checkbox",
   TextInput = "text",
   RangeSlider = "range",
-  Select = "select",
-  Buttons = "buttons",
 }
 
 type BaseFilter = {
@@ -45,35 +43,10 @@ export type DisplayFilter = {
     icon: ComponentType<SVGProps<SVGSVGElement>>;
     itemsPerPage: number;
   }[];
-}
+};
 
-// export type SelectFilter = BaseFilter & {
-//   type: FilterType.Select;
-//   values: {
-//     label: string;
-//     value: string;
-//     field: keyof Product;
-//     direction: "asc" | "desc";
-//   }[];
-// };
+export type SortFilter = {
+  fields: (keyof Product)[];
+};
 
-// type ButtonsFilterValue = {
-//   label?: string;
-//   icon?: ComponentType<SVGProps<SVGSVGElement>>;
-//   value: string;
-//   itemsPerPage?: number;
-// };
-
-// export type ButtonsFilter = BaseFilter & {
-//   type: FilterType.Buttons;
-//   initialValue?: string;
-//   onChange?: (value: string) => void;
-//   values: ButtonsFilterValue[];
-// };
-
-export type Filter =
-  | CheckboxFilter
-  | TextInputFilter
-  | RangeSliderFilter;
-  // | SelectFilter
-  // | ButtonsFilter;
+export type Filter = CheckboxFilter | TextInputFilter | RangeSliderFilter;

@@ -1,11 +1,9 @@
 "use client";
 
-import { DisplayFilter } from "@/types";
+import { DisplayFilter, SortFilter } from "@/types";
 import { List, Grid2X2, Grid3X3 } from "lucide-react";
-import ButtonFilterComponent from "../sidebar/filter-components/button-filter-component";
 import { useState } from "react";
 import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
-
 import {
   Pagination,
   PaginationContent,
@@ -18,6 +16,8 @@ import ItemDetailsComponent from "./item-details-component";
 import ItemComponent from "./item-component";
 import { Product } from "@/data";
 import { useMediaQuery } from "@/hooks/use-media-query";
+import DisplayFilterComponent from "../sidebar/filter-components/display-filter-component";
+import SortFilterComponent from "../sidebar/filter-components/sort-filter-component";
 
 export default function ItemsListComponent({
   resources,
@@ -28,10 +28,28 @@ export default function ItemsListComponent({
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(6);
 
+  const [sortValue, setSortValue] = useState<string>("");
+  const [sortField, sortDirection] =
+    sortValue !== ""
+      ? (sortValue.split("-") as [keyof Product, "asc" | "desc"])
+      : [undefined, undefined];
+
+  const sortedResources = [...resources].sort((a, b) => {
+    if (!sortField || !sortDirection) return 0;
+
+    const aVal = a[sortField];
+    const bVal = b[sortField];
+
+    if (aVal == null || bVal == null) return 0;
+    if (aVal < bVal) return sortDirection === "asc" ? -1 : 1;
+    if (aVal > bVal) return sortDirection === "asc" ? 1 : -1;
+    return 0;
+  });
+
   const totalPages = Math.ceil(resources.length / itemsPerPage);
   const isMobile = useMediaQuery("(max-width: 768px)");
 
-  const paginatedResources = resources.slice(
+  const paginatedResources = sortedResources.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -77,11 +95,27 @@ export default function ItemsListComponent({
     }
   };
 
+  const sortFilter: SortFilter = {
+    fields: ["price", "label"],
+  };
+
   return (
     <div className="flex-1">
       <div className="mx-6 flex items-center justify-between mb-6">
         <h2 className="text-2xl font-bold">Resources</h2>
-        {!isMobile && <ButtonFilterComponent filter={displays} />}
+        {!isMobile && (
+          <div className="flex items-center gap-4">
+            <SortFilterComponent
+              filter={sortFilter}
+              value={sortValue}
+              onFilter={(val) => {
+                setSortValue(val);
+                setCurrentPage(1); // reset to page 1 when sorting
+              }}
+            />
+            <DisplayFilterComponent filter={displays} />
+          </div>
+        )}
       </div>
       <div className={`grid gap-6 mx-6 ${getGridClass()}`}>
         {paginatedResources.map((resource) => (

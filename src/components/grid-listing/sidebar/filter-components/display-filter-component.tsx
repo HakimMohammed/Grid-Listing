@@ -7,7 +7,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-export default function ButtonFilterComponent({
+export default function DisplayFilterComponent({
   filter,
 }: {
   filter: DisplayFilter;

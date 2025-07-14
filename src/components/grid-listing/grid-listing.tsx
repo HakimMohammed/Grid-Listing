@@ -14,77 +14,6 @@ import ItemsListComponent from "@/components/grid-listing/items-list/items-list-
 import { products } from "@/data";
 import { useFilters } from "@/hooks/use-filters";
 
-// const filters: Filter[] = [
-//   {
-//     label: "Search",
-//     icon: Search,
-//     type: FilterType.TextInput,
-//     placeholder: "Search for stores ...",
-//   },
-//   {
-//     label: "Sort By",
-//     icon: Settings2,
-//     type: FilterType.Select,
-//     values: [
-//       { label: "Relevance", value: "relevance" },
-//       { label: "Price: Low to High", value: "price_low_to_high" },
-//       { label: "Price: High to Low", value: "price_high_to_low" },
-//       { label: "Newest First", value: "newest_first" },
-//       { label: "Oldest First", value: "oldest_first" },
-//     ],
-//   },
-//   {
-//     label: "Display",
-//     icon: LayoutDashboard,
-//     type: FilterType.Buttons,
-//     values: [
-//       { value: "list", icon: List, label: "List" },
-//       { value: "grid-2", icon: Grid2X2, label: "Grid 2" },
-//       { value: "grid-3", icon: Grid3X3, label: "Grid 3" },
-//       { value: "grid-4", icon: Grid3X3, label: "Grid 4" },
-//     ],
-//   },
-//   {
-//     label: "Price",
-//     type: FilterType.RangeSlider,
-//     values: {
-//       min: 0,
-//       max: 1000,
-//     },
-//   },
-//   {
-//     label: "Category",
-//     icon: LayoutDashboard,
-//     type: FilterType.Checkbox,
-//     values: [
-//       { label: "Electronics", value: "electronics" },
-//       { label: "Books", value: "books" },
-//       { label: "Clothing", value: "clothing" },
-//     ],
-//   },
-//   {
-//     label: "Resource Type",
-//     icon: ListChecks,
-//     type: FilterType.Checkbox,
-//     values: [
-//       { label: "API", value: "api" },
-//       { label: "Documentation", value: "documentation" },
-//       { label: "Tutorial", value: "tutorial" },
-//     ],
-//   },
-//   {
-//     label: "Technology Stack",
-//     icon: CodeXml,
-//     type: FilterType.Checkbox,
-//     values: [
-//       { label: "JavaScript", value: "javascript" },
-//       { label: "Python", value: "python" },
-//       { label: "Java", value: "java" },
-//       { label: "Ruby", value: "ruby" },
-//     ],
-//   },
-// ];
-
 const filters: Filter[] = [
   {
     label: "Search",
@@ -92,37 +21,6 @@ const filters: Filter[] = [
     type: FilterType.TextInput,
     placeholder: "Search for stores ...",
     fields: ["label", "description"],
-  },
-  {
-    type: FilterType.Select,
-    label: "Sort by",
-    fields: [],
-    values: [
-      {
-        label: "Price: Low to High",
-        value: "price-asc",
-        field: "price",
-        direction: "asc",
-      },
-      {
-        label: "Price: High to Low",
-        value: "price-desc",
-        field: "price",
-        direction: "desc",
-      },
-      {
-        label: "Name: A to Z",
-        value: "name-asc",
-        field: "label",
-        direction: "asc",
-      },
-      {
-        label: "Name: Z to A",
-        value: "name-desc",
-        field: "label",
-        direction: "desc",
-      },
-    ],
   },
   {
     label: "Price",
@@ -154,7 +52,6 @@ const filters: Filter[] = [
       { label: "Sweets", value: "sweets" },
     ],
   },
-  
 ];
 
 export default function GridListing() {
